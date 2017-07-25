@@ -14,7 +14,7 @@ int te(int n)
 }
 int main()
 {
-    if(!te(11))
+    if(te(11))
     {
         cout<<"yo"<<endl;
     }

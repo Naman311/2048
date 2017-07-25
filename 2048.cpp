@@ -7,6 +7,7 @@ using namespace std;
 int X=4;
 int Y=4;
 int mat[10][10];
+int flag=1;
 
 int random_2or4()
 {
@@ -46,6 +47,7 @@ bool no_collion(int x,int y)
     else
         return true;
 }
+
 bool swamp()
 {
     int x,y,count=0;
@@ -61,7 +63,7 @@ bool swamp()
     }
     else
     {
-        cout<<"value of x and y is "<<x<<"  "<<y<<endl;
+        //cout<<"value of x and y is "<<x<<"  "<<y<<endl;
         mat[x][y]=random_2or4();
         return true;
     }
@@ -80,11 +82,13 @@ void move_up()
                     mat[I-1][J]=mat[I][J];
                     mat[I][J]=0;
                     I--;
+                    flag=1;
                 }
                 if(mat[I-1][J]==mat[I][J])
                 {
                     mat[I-1][J]=mat[I][J]+mat[I][J];
                     mat[I][J]=0;
+                    flag=1;
                 }
             }
         }
@@ -104,11 +108,13 @@ void move_down()
                     mat[I+1][J]=mat[I][J];
                     mat[I][J]=0;
                     I++;
+                    flag=1;
                 }
                 if(mat[I+1][J]==mat[I][J])
                 {
                     mat[I+1][J]=mat[I][J]+mat[I][J];
                     mat[I][J]=0;
+                    flag=1;
                 }
             }
         }
@@ -128,11 +134,13 @@ void move_left()
                     mat[I][J-1]=mat[I][J];
                     mat[I][J]=0;
                     J--;
+                    flag=1;
                 }
                 if(mat[I][J-1]==mat[I][J])
                 {
                     mat[I][J-1]=mat[I][J]+mat[I][J];
                     mat[I][J]=0;
+                    flag=1;
                 }
             }
         }
@@ -152,11 +160,13 @@ void move_right()
                     mat[I][J+1]=mat[I][J];
                     mat[I][J]=0;
                     J++;
+                    flag=1;
                 }
                 if(mat[I][J+1]==mat[I][J])
                 {
                     mat[I][J+1]=mat[I][J]+mat[I][J];
                     mat[I][J]=0;
+                    flag=1;
                 }
             }
         }
@@ -181,14 +191,17 @@ int main()
 {
     char n;
     for(;;)
-    {
-        if(!swamp())
+    {   system("cls");
+        if(flag==1)
         {
-            cout<<"\nGame over";
-            return 0;
+            if(!swamp())
+            {
+                cout<<"\nGame over";
+                return 0;
+            }
+            flag=0;
         }
         show_mat();
-        cout<<endl;
         while(!kbhit())
         {
             n=getch();
@@ -197,7 +210,4 @@ int main()
         movement(n);
     }
 }
-/*  to add:-
-1. no swamp for no movement
 
-*/
